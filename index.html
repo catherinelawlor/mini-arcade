@@ -21,23 +21,46 @@
 
         <section id="game1" class="game-section">
             <h2>🎯 Guess the Number</h2>
-            <p class="placeholder">Game coming soon...</p>
+            <p> I’m thinking of a number between 1 and 100.</p>
+             <form id="guess-form">
+        <input type="number" id="guess-input" placeholder="Enter your guess" required>
+        <button type="submit">Guess</button>
+    </form>
+
+    <p id="feedback"></p>
+    <p id="attempts"></p>
+    <button id="reset-btn">Reset Game</button>
         </section>
 
         <section id="game2" class="game-section">
             <h2>⚡ Click Speed Challenge</h2>
-            <p class="placeholder">Game coming soon...</p>
-        </section>
+           <section id="game2" class="game-section">
+    
+
+    <p>How many times can you click the button in 5 seconds?</p>
+
+    <button id="click-btn">Click me!</button>
+
+    <p id="click-count">Clicks: 0</p>
+    <p id="timer">Time left: 5</p>
+
+    <button id="start-btn">Start Game</button>
+</section>
 
         <section id="game3" class="game-section">
-            <h2>🧠 Memory Flip Game</h2>
-            <p class="placeholder">Game coming soon...</p>
-        </section>
+    <h2>🧠 Memory Flip Game</h2>
+
+    <p>Find all the matching pairs!</p>
+
+    <div id="memory-grid"></div>
+
+    <button id="restart-memory">Restart Game</button>
+</section>
 
     </main>
 
     <footer>
-        <p>© 2024 Catherine's Mini Arcade</p>
+        <p>© 2026 Catherine's Mini Arcade</p>
     </footer>
 
     <script src="script.js"></script>
