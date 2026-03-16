@@ -167,3 +167,34 @@ footer {
 #restart-memory:hover {
     background: #00eaff;
 }
+
+/* Fade-in animation for sections */
+.game-section {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+button {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+}
+
+.memory-card {
+    transition: transform 0.3s ease;
+}
+
+.memory-card:active {
+    transform: scale(0.95);
+}
