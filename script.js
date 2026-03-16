@@ -95,6 +95,7 @@ clickBtn.addEventListener("click", function() {
 
 const memoryGrid = document.getElementById("memory-grid");
 const restartMemoryBtn = document.getElementById("restart-memory");
+const memoryMessage = document.getElementById("memory-message");
 
 let cardValues = ["🍎", "🍎", "⭐", "⭐", "🎵", "🎵", "🐶", "🐶"];
 let firstCard = null;
@@ -109,6 +110,7 @@ function shuffle(array) {
 // Create the cards
 function setupMemoryGame() {
     memoryGrid.innerHTML = "";
+    memoryMessage.textContent = "";
     shuffle(cardValues);
 
     cardValues.forEach(value => {
@@ -142,6 +144,15 @@ function checkMatch() {
     if (firstCard.dataset.value === secondCard.dataset.value) {
         firstCard = null;
         secondCard = null;
+
+        // Check if all cards are matched
+        const allCards = document.querySelectorAll(".memory-card");
+        const allRevealed = [...allCards].every(card => card.textContent !== "?");
+
+        if (allRevealed) {
+            memoryMessage.textContent = "🎉 You matched all the pairs!";
+        }
+
     } else {
         lockBoard = true;
         setTimeout(() => {
