@@ -226,3 +226,52 @@ if (themeToggle) {
         }
     });
 }
+
+// -----------------------------
+// CONTACT FORM — DOM INTERACTION
+// -----------------------------
+
+const contactForm = document.getElementById("contact-form");
+const contactName = document.getElementById("contact-name");
+const contactEmail = document.getElementById("contact-email");
+const contactMessage = document.getElementById("contact-message");
+const contactFeedback = document.getElementById("contact-feedback");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Reset feedback
+        contactFeedback.textContent = "";
+        contactFeedback.style.color = "";
+
+        // Validation
+        if (contactName.value.trim() === "") {
+            contactFeedback.textContent = "Please enter your name.";
+            contactFeedback.style.color = "#ff00ff";
+            return;
+        }
+
+        if (contactEmail.value.trim() === "" || !contactEmail.value.includes("@")) {
+            contactFeedback.textContent = "Please enter a valid email.";
+            contactFeedback.style.color = "#ff00ff";
+            return;
+        }
+
+        if (contactMessage.value.trim() === "") {
+            contactFeedback.textContent = "Please enter a message.";
+            contactFeedback.style.color = "#ff00ff";
+            return;
+        }
+
+        // Success message
+        contactFeedback.textContent = "🎉 Message sent successfully!";
+        contactFeedback.style.color = "#00ff88";
+
+        // Clear form
+        contactName.value = "";
+        contactEmail.value = "";
+        contactMessage.value = "";
+    });
+}
