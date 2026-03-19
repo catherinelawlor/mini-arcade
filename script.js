@@ -22,12 +22,20 @@ if (form && input && feedback && attemptsDisplay && resetBtn) {
         if (guess < secretNumber) {
             feedback.textContent = "Too low!";
             feedback.style.color = "#00eaff";
+
         } else if (guess > secretNumber) {
             feedback.textContent = "Too high!";
             feedback.style.color = "#ff00ff";
+
         } else {
             feedback.textContent = "Correct! You win!";
             feedback.style.color = "#00ff88";
+
+            // -----------------------------
+            // NEW HIGH SCORE CHECK
+            // -----------------------------
+            let score = 100 - attempts; // fewer attempts = higher score
+            checkHighScore("Guess the Number", score);
         }
 
         attemptsDisplay.textContent = `Attempts: ${attempts}`;
