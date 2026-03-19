@@ -80,6 +80,12 @@ if (clickBtn && startBtn && clickCountDisplay && timerDisplay) {
                 clearInterval(timerInterval);
                 clickBtn.disabled = true;
                 startBtn.disabled = false;
+
+                // -----------------------------
+                // NEW HIGH SCORE CHECK GOES HERE
+                // -----------------------------
+                let score = clicks; // number of clicks in 5 seconds
+                checkHighScore("Click Speed Challenge", score);
             }
         }, 1000);
     });
@@ -89,7 +95,6 @@ if (clickBtn && startBtn && clickCountDisplay && timerDisplay) {
         clickCountDisplay.textContent = `Clicks: ${clicks}`;
     });
 }
-
 
 
 // -----------------------------
@@ -353,3 +358,52 @@ if (scoreForm) {
 
     topFiveToggle.addEventListener("change", renderScores);
 }
+
+// -----------------------------
+// GLOBAL HIGH SCORE STORAGE
+// -----------------------------
+
+function getHighScore(gameName) {
+    return JSON.parse(localStorage.getItem(`highscore_${gameName}`)) || null;
+}
+
+function setHighScore(gameName, scoreData) {
+    localStorage.setItem(`highscore_${gameName}`, JSON.stringify(scoreData));
+}
+
+function checkHighScore(gameName, newScore) {
+    const current = getHighScore(gameName);
+
+    if (!current || newScore > current.score) {
+        // Show popup
+        document.getElementById("highscore-popup").style.display = "block";
+
+        document.getElementById("hs-save").onclick = function() {
+            const name = document.getElementById("hs-name").value.trim();
+            const comment = document.getElementById("hs-comment").value.trim();
+
+            if (name === "") {
+                alert("Please enter your name!");
+                return;
+            }
+
+            // Save high score
+            setHighScore(gameName, { name, score: newScore });
+
+            // Also add to leaderboard
+            const scores = JSON.parse(localStorage.getItem("scores")) || [];
+            scores.unshift({
+                name,
+                comment,
+                game: gameName
+            });
+            localStorage.setItem("scores", JSON.stringify(scores));
+
+            // Hide popup
+            document.getElementById("highscore-popup").style.display = "none";
+
+            alert("High score saved!");
+        };
+    }
+}
+

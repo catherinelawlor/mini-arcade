@@ -704,3 +704,64 @@ body.light-mode main,
 body.light-mode .game-section {
     background: white !important;
 }
+
+/* Light Mode — Game Cards Text */
+body.light-mode .card-title,
+body.light-mode .card-text {
+    color: #111 !important;
+}
+
+/* Light Mode — Section Headings */
+body.light-mode h2 {
+    color: #ff00ff;
+    text-shadow: 0 0 6px rgba(255, 0, 255, 0.25);
+}
+
+/* Light Mode — Hero Text */
+body.light-mode .hero h1,
+body.light-mode .hero p {
+    color: #111 !important;
+    text-shadow: none !important;
+}
+
+/* Light Mode — Play Buttons */
+body.light-mode .card .btn {
+    background: #ff00ff;
+    color: white;
+    border: none;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+body.light-mode .card .btn:hover {
+    background: #00eaff;
+    color: #111;
+}
+
+/* Light Mode — Carousel Text */
+body.light-mode .carousel-text {
+    color: #ff00ff;
+    text-shadow: none;
+}
+
+.highscore-popup {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    padding: 25px;
+    border-radius: 10px;
+    border: 2px solid #00eaff;
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.5);
+    z-index: 9999;
+    width: 300px;
+    text-align: center;
+}
+
+/* Light Mode */
+body.light-mode .highscore-popup {
+    background: white;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+}
