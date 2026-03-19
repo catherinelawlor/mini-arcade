@@ -119,6 +119,7 @@ if (memoryGrid && restartMemoryBtn && memoryMessage) {
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
+    let attempts = 0; // NEW
 
     function shuffle(array) {
         return array.sort(() => Math.random() - 0.5);
@@ -128,6 +129,7 @@ if (memoryGrid && restartMemoryBtn && memoryMessage) {
         memoryGrid.innerHTML = "";
         memoryMessage.textContent = "";
         shuffle(cardValues);
+        attempts = 0; // NEW
 
         cardValues.forEach(value => {
             const card = document.createElement("div");
@@ -144,6 +146,7 @@ if (memoryGrid && restartMemoryBtn && memoryMessage) {
         if (lockBoard || this === firstCard) return;
 
         this.textContent = this.dataset.value;
+        attempts++; // NEW
 
         if (!firstCard) {
             firstCard = this;
@@ -164,6 +167,12 @@ if (memoryGrid && restartMemoryBtn && memoryMessage) {
 
             if (allRevealed) {
                 memoryMessage.textContent = "🎉 You matched all the pairs!";
+
+                // -----------------------------
+                // NEW HIGH SCORE CHECK
+                // -----------------------------
+                let score = 100 - attempts; // fewer flips = better score
+                checkHighScore("Memory Flip", score);
             }
 
         } else {
@@ -182,7 +191,6 @@ if (memoryGrid && restartMemoryBtn && memoryMessage) {
 
     setupMemoryGame();
 }
-
 // -----------------------------
 // GAME 4 — ROCK PAPER SCISSORS
 // -----------------------------
