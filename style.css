@@ -535,3 +535,27 @@ body.light-mode .contact-form textarea {
     color: #111;
     border: 2px solid #ff00ff;
 }
+
+.score-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.score-list li {
+    background: #111;
+    border: 2px solid #00eaff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
+}
+
+/* Light Mode */
+body.light-mode .score-list li {
+    background: white;
+    color: #111;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+}

@@ -275,3 +275,38 @@ if (contactForm) {
         contactMessage.value = "";
     });
 }
+
+// -----------------------------
+// HIGH SCORES — DOM INTERACTION
+// -----------------------------
+
+const scoreForm = document.getElementById("score-form");
+const scoreName = document.getElementById("score-name");
+const scoreComment = document.getElementById("score-comment");
+const scoreList = document.getElementById("score-list");
+
+if (scoreForm) {
+
+    scoreForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = scoreName.value.trim();
+        const comment = scoreComment.value.trim();
+
+        if (name === "" || comment === "") {
+            alert("Please fill in both fields!");
+            return;
+        }
+
+        // Create new list item
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${name}</strong>: ${comment}`;
+
+        // Add to list
+        scoreList.appendChild(li);
+
+        // Clear form
+        scoreName.value = "";
+        scoreComment.value = "";
+    });
+}
