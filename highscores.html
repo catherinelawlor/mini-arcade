@@ -29,18 +29,33 @@
         <h2>🏆 High Scores</h2>
         <p>Add your name and a comment!</p>
 
-        <form id="score-form" class="contact-form">
-            <label>Your Name</label>
-            <input type="text" id="score-name" placeholder="Enter your name">
+<form id="score-form" class="contact-form">
 
-            <label>Your Comment</label>
-            <input type="text" id="score-comment" placeholder="Enter a comment">
+    <label>Your Name</label>
+    <input type="text" id="score-name" placeholder="Enter your name">
 
-            <button type="submit" class="theme-btn">Submit Score</button>
-        </form>
+    <label>Your Comment</label>
+    <input type="text" id="score-comment" placeholder="Enter a comment">
 
-        <h3 class="mt-4">Leaderboard</h3>
-        <ul id="score-list" class="score-list"></ul>
+    <label>Game</label>
+    <select id="score-game">
+        <option value="Guess the Number">Guess the Number</option>
+        <option value="Click Speed Challenge">Click Speed Challenge</option>
+        <option value="Memory Flip">Memory Flip</option>
+        <option value="Rock, Paper, Scissors">Rock, Paper, Scissors</option>
+    </select>
+
+    <button type="submit" class="theme-btn">Submit Score</button>
+</form>
+
+<h3 class="mt-4">Leaderboard</h3>
+
+<label class="mt-3">
+    <input type="checkbox" id="top-five-toggle">
+    Show only Top 5
+</label>
+
+<ul id="score-list" class="score-list"></ul>
     </section>
 </main>
 

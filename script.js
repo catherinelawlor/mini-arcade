@@ -276,37 +276,80 @@ if (contactForm) {
     });
 }
 
+
 // -----------------------------
-// HIGH SCORES — DOM INTERACTION
+// HIGH SCORES — FULL SYSTEM
 // -----------------------------
 
 const scoreForm = document.getElementById("score-form");
 const scoreName = document.getElementById("score-name");
 const scoreComment = document.getElementById("score-comment");
+const scoreGame = document.getElementById("score-game");
 const scoreList = document.getElementById("score-list");
+const topFiveToggle = document.getElementById("top-five-toggle");
+
+let scores = JSON.parse(localStorage.getItem("scores")) || [];
+
+function saveScores() {
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+function renderScores() {
+    scoreList.innerHTML = "";
+
+    let displayScores = [...scores];
+
+    if (topFiveToggle.checked) {
+        displayScores = displayScores.slice(0, 5);
+    }
+
+    displayScores.forEach((entry, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <div>
+                <strong>${entry.name}</strong> (${entry.game})<br>
+                ${entry.comment}
+            </div>
+            <button class="delete-btn" data-index="${index}">X</button>
+        `;
+        scoreList.appendChild(li);
+    });
+}
 
 if (scoreForm) {
+
+    renderScores();
 
     scoreForm.addEventListener("submit", function(event) {
         event.preventDefault();
 
         const name = scoreName.value.trim();
         const comment = scoreComment.value.trim();
+        const game = scoreGame.value;
 
         if (name === "" || comment === "") {
-            alert("Please fill in both fields!");
+            alert("Please fill in all fields!");
             return;
         }
 
-        // Create new list item
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${name}</strong>: ${comment}`;
+        const newEntry = { name, comment, game };
 
-        // Add to list
-        scoreList.appendChild(li);
+        scores.unshift(newEntry); // newest at top
+        saveScores();
+        renderScores();
 
-        // Clear form
         scoreName.value = "";
         scoreComment.value = "";
     });
+
+    scoreList.addEventListener("click", function(event) {
+        if (event.target.classList.contains("delete-btn")) {
+            const index = event.target.dataset.index;
+            scores.splice(index, 1);
+            saveScores();
+            renderScores();
+        }
+    });
+
+    topFiveToggle.addEventListener("change", renderScores);
 }

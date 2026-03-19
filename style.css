@@ -559,3 +559,52 @@ body.light-mode .score-list li {
     border: 2px solid #ff00ff;
     box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
 }
+
+.score-list li {
+    background: #111;
+    border: 2px solid #00eaff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 0 12px rgba(0, 234, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.delete-btn {
+    background: #ff00ff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #00eaff;
+    color: #111;
+}
+
+/* Light Mode */
+body.light-mode .score-list li {
+    background: white;
+    color: #111;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+}
+
+body.light-mode .delete-btn {
+    background: #ff00ff;
+}
+
+body.light-mode .delete-btn:hover {
+    background: #00eaff;
+}
