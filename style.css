@@ -765,3 +765,18 @@ body.light-mode .highscore-popup {
     border: 2px solid #ff00ff;
     box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
 }
+
+.best-score {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #00eaff;
+    text-shadow: 0 0 8px rgba(0, 234, 255, 0.4);
+}
+
+/* Light Mode */
+body.light-mode .best-score {
+    color: #ff00ff;
+    text-shadow: none;
+}
+
+}

@@ -8,6 +8,8 @@ const feedback = document.getElementById("feedback");
 const attemptsDisplay = document.getElementById("attempts");
 const resetBtn = document.getElementById("reset-btn");
 
+displayBestScore("Guess the Number");
+
 if (form && input && feedback && attemptsDisplay && resetBtn) {
 
     let secretNumber = Math.floor(Math.random() * 100) + 1;
@@ -61,6 +63,7 @@ const clickBtn = document.getElementById("click-btn");
 const startBtn = document.getElementById("start-btn");
 const clickCountDisplay = document.getElementById("click-count");
 const timerDisplay = document.getElementById("timer");
+displayBestScore("Click Speed Challenge");
 
 if (clickBtn && startBtn && clickCountDisplay && timerDisplay) {
 
@@ -112,6 +115,7 @@ if (clickBtn && startBtn && clickCountDisplay && timerDisplay) {
 const memoryGrid = document.getElementById("memory-grid");
 const restartMemoryBtn = document.getElementById("restart-memory");
 const memoryMessage = document.getElementById("memory-message");
+displayBestScore("Memory Flip");
 
 if (memoryGrid && restartMemoryBtn && memoryMessage) {
 
@@ -297,7 +301,6 @@ if (contactForm) {
     });
 }
 
-
 // -----------------------------
 // HIGH SCORES — FULL SYSTEM
 // -----------------------------
@@ -316,11 +319,13 @@ function saveScores() {
 }
 
 function renderScores() {
+    if (!scoreList) return;
+
     scoreList.innerHTML = "";
 
     let displayScores = [...scores];
 
-    if (topFiveToggle.checked) {
+    if (topFiveToggle && topFiveToggle.checked) {
         displayScores = displayScores.slice(0, 5);
     }
 
@@ -337,8 +342,66 @@ function renderScores() {
     });
 }
 
-if (scoreForm) {
+// -----------------------------
+// BEST SCORE DISPLAY
+// -----------------------------
+function displayBestScore(gameName) {
+    const best = getHighScore(gameName);
+    const bestScoreElement = document.getElementById("best-score");
 
+    if (!bestScoreElement) return;
+
+    if (!best) {
+        bestScoreElement.textContent = "Best Score: None yet!";
+    } else {
+        bestScoreElement.textContent =
+            `Best Score: ${best.score} by ${best.name}`;
+    }
+}
+
+// -----------------------------
+// GLOBAL HIGH SCORE STORAGE
+// -----------------------------
+function getHighScore(gameName) {
+    return JSON.parse(localStorage.getItem(`highscore_${gameName}`)) || null;
+}
+
+function setHighScore(gameName, scoreData) {
+    localStorage.setItem(`highscore_${gameName}`, JSON.stringify(scoreData));
+}
+
+function checkHighScore(gameName, newScore) {
+    const current = getHighScore(gameName);
+
+    if (!current || newScore > current.score) {
+        document.getElementById("highscore-popup").style.display = "block";
+
+        document.getElementById("hs-save").onclick = function() {
+            const name = document.getElementById("hs-name").value.trim();
+            const comment = document.getElementById("hs-comment").value.trim();
+
+            if (name === "") {
+                alert("Please enter your name!");
+                return;
+            }
+
+            setHighScore(gameName, { name, score: newScore });
+
+            const scores = JSON.parse(localStorage.getItem("scores")) || [];
+            scores.unshift({ name, comment, game: gameName });
+            localStorage.setItem("scores", JSON.stringify(scores));
+
+            document.getElementById("highscore-popup").style.display = "none";
+
+            alert("High score saved!");
+        };
+    }
+}
+
+// -----------------------------
+// HIGH SCORE PAGE ONLY
+// -----------------------------
+if (scoreForm) {
     renderScores();
 
     scoreForm.addEventListener("submit", function(event) {
@@ -354,8 +417,7 @@ if (scoreForm) {
         }
 
         const newEntry = { name, comment, game };
-
-        scores.unshift(newEntry); // newest at top
+        scores.unshift(newEntry);
         saveScores();
         renderScores();
 
@@ -372,54 +434,7 @@ if (scoreForm) {
         }
     });
 
-    topFiveToggle.addEventListener("change", renderScores);
-}
-
-// -----------------------------
-// GLOBAL HIGH SCORE STORAGE
-// -----------------------------
-
-function getHighScore(gameName) {
-    return JSON.parse(localStorage.getItem(`highscore_${gameName}`)) || null;
-}
-
-function setHighScore(gameName, scoreData) {
-    localStorage.setItem(`highscore_${gameName}`, JSON.stringify(scoreData));
-}
-
-function checkHighScore(gameName, newScore) {
-    const current = getHighScore(gameName);
-
-    if (!current || newScore > current.score) {
-        // Show popup
-        document.getElementById("highscore-popup").style.display = "block";
-
-        document.getElementById("hs-save").onclick = function() {
-            const name = document.getElementById("hs-name").value.trim();
-            const comment = document.getElementById("hs-comment").value.trim();
-
-            if (name === "") {
-                alert("Please enter your name!");
-                return;
-            }
-
-            // Save high score
-            setHighScore(gameName, { name, score: newScore });
-
-            // Also add to leaderboard
-            const scores = JSON.parse(localStorage.getItem("scores")) || [];
-            scores.unshift({
-                name,
-                comment,
-                game: gameName
-            });
-            localStorage.setItem("scores", JSON.stringify(scores));
-
-            // Hide popup
-            document.getElementById("highscore-popup").style.display = "none";
-
-            alert("High score saved!");
-        };
+    if (topFiveToggle) {
+        topFiveToggle.addEventListener("change", renderScores);
     }
 }
-
